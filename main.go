@@ -9,5 +9,4 @@ func main() {
 
 	keys.Load()
 	option.GetOsSystem()
-	//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
 }

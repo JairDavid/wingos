@@ -1,21 +1,20 @@
-package option
+package edition
 
 import (
-	"fmt"
-	"log"
+	"golang.org/x/sys/windows/registry"
 )
-import "golang.org/x/sys/windows/registry"
 
-func GetOsSystem() {
+func GetOsSystem() (string, error) {
 	k, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\Microsoft\Windows NT\CurrentVersion`, registry.QUERY_VALUE)
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 	defer k.Close()
 
 	eid, _, err := k.GetStringValue("EditionID")
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
-	fmt.Print(eid, " : ", k)
+
+	return eid, nil
 }
